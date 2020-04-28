@@ -5,6 +5,7 @@ import { Switch, Route, Link } from "react-router-dom";
 import Home from "./components/Home";
 import Register from "./components/RegisterForm";
 import Game from "./components/Game";
+import PrivateRoute from "./components/PrivateRoute";
 // Styles
 
 function App() {
@@ -12,12 +13,9 @@ function App() {
     <div className="App">
       <Switch>
         <Route exact path="/" component={Home} />
-        <Route path="/poketrade" component={Game} />
+        <PrivateRoute path="/poketrade" component={Game} />
         <Route path="/register" component={Register} />
       </Switch>
-      {/* <Home /> */}
-
-      {/* <h1>Pokeballs</h1> */}
     </div>
   );
 }

@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
+import axiosWithAuth from "./axiosWithAuth";
+
 import { Link } from "react-router-dom";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
@@ -25,8 +25,37 @@ const useStyles = makeStyles({
   },
 });
 
-const Register = () => {
+const Register = (props) => {
   const classes = useStyles();
+  const initialValues = {
+    username: "",
+    password1: "",
+    password2: "",
+  };
+
+  const [register, setRegister] = useState(initialValues);
+
+  const handleChange = (e) => {
+    e.preventDefault();
+    setRegister({
+      ...register,
+      [e.target.name]: [e.target.value],
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    axiosWithAuth()
+      .post("/registration/", register)
+      .then((res) => {
+        localStorage.setItem("key", res.data.key);
+        console.log(res);
+        props.history.push("/");
+      })
+      .catch((err) => {
+        console.log("Error Registering In", err);
+      });
+  };
 
   return (
     <Container maxWidth="xs">
@@ -35,18 +64,19 @@ const Register = () => {
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <form className={classes.form}>
+        <form className={classes.form} onSubmit={handleSubmit}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
-                autoComplete="name"
-                name="name"
                 variant="outlined"
                 required
                 fullWidth
-                id="name"
-                label="Name"
-                autoFocus
+                id="username"
+                label="Username"
+                name="username"
+                autoComplete="username"
+                value={register.username.value}
+                onChange={handleChange}
               />
             </Grid>
             <Grid item xs={12}>
@@ -54,22 +84,25 @@ const Register = () => {
                 variant="outlined"
                 required
                 fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                name="password"
+                name="password1"
                 label="Password"
                 type="password"
-                id="password"
+                id="password1"
                 autoComplete="current-password"
+                value={register.password1.value}
+                onChange={handleChange}
+              />
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                name="password2"
+                label="Retype Password"
+                type="password"
+                id="password2"
+                autoComplete="current-password"
+                value={register.password2.value}
+                onChange={handleChange}
               />
             </Grid>
           </Grid>
