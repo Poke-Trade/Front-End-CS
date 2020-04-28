@@ -39,8 +39,9 @@ const Register = (props) => {
     e.preventDefault();
     setRegister({
       ...register,
-      [e.target.name]: [e.target.value],
+      [e.target.name]: e.target.value,
     });
+    console.log(e.target.value);
   };
 
   const handleSubmit = (e) => {
@@ -75,7 +76,7 @@ const Register = (props) => {
                 label="Username"
                 name="username"
                 autoComplete="username"
-                value={register.username.value}
+                value={register.username}
                 onChange={handleChange}
               />
             </Grid>
@@ -89,7 +90,7 @@ const Register = (props) => {
                 type="password"
                 id="password1"
                 autoComplete="current-password"
-                value={register.password1.value}
+                value={register.password1}
                 onChange={handleChange}
               />
               <TextField
@@ -101,7 +102,7 @@ const Register = (props) => {
                 type="password"
                 id="password2"
                 autoComplete="current-password"
-                value={register.password2.value}
+                value={register.password2}
                 onChange={handleChange}
               />
             </Grid>

@@ -24,14 +24,14 @@ const useStyles = makeStyles({
     backgroundColor: "#33FFFD",
   },
 });
-const Home = () => {
+const Home = (props) => {
   const classes = useStyles();
   return (
     <div className={classes.root}>
       <AppBar position="static" className={classes.appBar}>
         <ToolBar variant="dense">
           <Grid container flex-direction="row" justify="space-between">
-            <Typography variant="h6" classNames={classes.title}>
+            <Typography variant="h6" className={classes.title}>
               {" "}
               PokeTrade
             </Typography>
