@@ -5,8 +5,13 @@ import axiosWithAuth from "./axiosWithAuth";
 import Button from "@material-ui/core/Button";
 
 const Move = () => {
+  //   const north = { direction: "n" };
+  //   const south = { direction: "s" };
+
   const initialValues = {
-    direction: "s",
+    //   north: { direction: "n" },
+    //   south: { direction: "s" },
+    direction: "",
   };
   const [move, setMove] = useState(initialValues);
 
@@ -23,22 +28,33 @@ const Move = () => {
     axiosWithAuth()
       .post("/adv/move/", move)
       .then((res) => {
-        setMove(res.data);
         console.log(res);
+        setMove(res.data);
       })
       .catch((err) => {
         console.log("Error moving character", err);
       });
   };
+
   return (
-    <div>
+    <div onChange={handleChange}>
       <Button
         type="submit"
         variant="contained"
         color="primary"
         onClick={handleClick}
+        value={move.north}
       >
         North
+      </Button>
+      <Button
+        type="submit"
+        variant="contained"
+        color="primary"
+        onClick={handleClick}
+        value={move.south}
+      >
+        South
       </Button>
       {/* <Button
         type="submit"
@@ -46,7 +62,15 @@ const Move = () => {
         color="primary"
         onClick={handleClick}
       >
-        South
+        West
+      </Button>
+      <Button
+        type="submit"
+        variant="contained"
+        color="primary"
+        onClick={handleClick}
+      >
+        East
       </Button> */}
     </div>
   );

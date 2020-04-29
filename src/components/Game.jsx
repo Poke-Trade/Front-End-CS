@@ -2,7 +2,10 @@ import React, { useState, useEffect } from "react";
 import axiosWithAuth from "./axiosWithAuth";
 import Move from "./move";
 
+//Styles
+import game from "../styles/game.css";
 const Game = () => {
+  // const classes = useStyles();
   const [data, setData] = useState({});
 
   useEffect(() => {
@@ -18,8 +21,7 @@ const Game = () => {
   }, []);
   return (
     <div>
-      {" "}
-      <p>Game</p>
+      <div className="game-area"></div>
       <Move />
     </div>
   );
