@@ -4,7 +4,8 @@ import { Switch, Route, Link } from "react-router-dom";
 //Components
 import Home from "./components/Home";
 import Register from "./components/RegisterForm";
-import Game from "./components/Game";
+// import Game from "./components/Game";
+import GamePage from "./components/GamePage";
 import PrivateRoute from "./components/PrivateRoute";
 // Styles
 
@@ -13,7 +14,7 @@ function App() {
     <div className="App">
       <Switch>
         <Route exact path="/" component={Home} />
-        <PrivateRoute path="/poketrade" component={Game} />
+        <PrivateRoute path="/poketrade" component={GamePage} />
         <Route path="/register" component={Register} />
       </Switch>
     </div>
