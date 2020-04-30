@@ -4,7 +4,6 @@ import char from "../assets/char2.png";
 import "../styles/App.css";
 
 import { Link } from "react-router-dom";
-import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
@@ -67,7 +66,6 @@ const Register = (props) => {
       <img className="Char" src={char} alt="char" />
       <Container maxWidth="xs">
         <div className={classes.paper}>
-          {/* <Avatar className={classes.avatar}></Avatar> */}
           <Typography variant="h5">Create your account!</Typography>
           <form className={classes.form} onSubmit={handleSubmit}>
             <Grid container spacing={2}>

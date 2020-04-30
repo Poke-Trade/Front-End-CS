@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Room from "./Rooms";
+import axiosWithAuth from "./axiosWithAuth";
 import "../styles/game.css";
 
 const getRandomCoordinates = () => {
@@ -15,6 +16,7 @@ const initialState = {
   player: [0, 0],
   direction: "",
   collectedCoins: 0,
+  yell: null,
 };
 
 class Game extends Component {
@@ -23,41 +25,64 @@ class Game extends Component {
   componentDidMount() {
     console.log(this.state.player);
     document.onkeydown = this.move;
+
+    axiosWithAuth()
+      .get("/adv/init/") //start
+      .then((res) => {
+        console.log(res);
+        this.setState({
+          yell: res.data,
+        });
+      })
+      .catch((err) => {
+        console.log("Error fetching data", err);
+      });
   }
+
   componentDidUpdate() {
     console.log(this.state.player);
     this.grabCoin();
   }
 
   move = (e) => {
+    // axiosWithAuth()
+    //   .post("/registration/", register)
+    //   .then((res) => {
+    //     localStorage.setItem("key", res.data.key);
+    //     console.log(res);
+    //     props.history.push("/");
+    //   })
+    //   .catch((err) => {
+    //     console.log("Error Registering In", err);
+    //   });
+
     let pixel = [...this.state.player];
-    let x = [];
-    let y = [];
+
     if (pixel[1] <= 88) {
       // Up
       if (e.keyCode === 38) {
-        let y = (pixel[1] += 2);
+        pixel[1] += 2;
         this.setState({ player: pixel });
       }
     }
     if (pixel[1] >= 2) {
       // Down
       if (e.keyCode === 40) {
-        let y = (pixel[1] -= 2);
+        pixel[1] -= 2;
         this.setState({ player: pixel });
       }
     }
     if (pixel[0] <= 88) {
       // Left
       if (e.keyCode === 37) {
-        let x = (pixel[0] += 2);
+        pixel[0] += 2;
         this.setState({ player: pixel });
       }
     }
     if (pixel[0] >= 2) {
       // Right
       if (e.keyCode === 39) {
-        let x = (pixel[0] -= 2);
+        pixel[0] -= 2;
         this.setState({ player: pixel });
       }
     }
@@ -67,9 +92,9 @@ class Game extends Component {
     let player = this.state.player;
     let coin = this.state.coin;
     let collectedCoins = this.state.collectedCoins;
-    console.log(collectedCoins);
-    console.log(coin);
-    console.log(player);
+    // console.log(collectedCoins);
+    // console.log(coin);
+    // console.log(player);
     if (player[0] === coin[0] && player[1] === coin[1]) {
       collectedCoins += 1;
       this.setState({
@@ -94,15 +119,3 @@ class Game extends Component {
 }
 
 export default Game;
-
-//   useEffect(() => {
-//     axiosWithAuth()
-//       .get("/adv/init/") //start
-//       .then((res) => {
-//         console.log(res);
-//         setData(res.data);
-//       })
-//       .catch((err) => {
-//         console.log("Error fetching data", err);
-//       });
-//   }, []);

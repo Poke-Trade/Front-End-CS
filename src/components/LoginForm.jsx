@@ -8,8 +8,8 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Container from "@material-ui/core/Container";
-import styled from "styled-components";
-import ball from "../assets/ball.png";
+// import styled from "styled-components";
+// import ball from "../assets/ball.png";
 import "../styles/App.css";
 
 const useStyles = makeStyles({
