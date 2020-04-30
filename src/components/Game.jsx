@@ -4,7 +4,7 @@ import "../styles/game.css";
 
 const getRandomCoordinates = () => {
   let min = 5;
-  let max = 92;
+  let max = 88;
   let x = Math.floor((Math.random() * (max - min + 1) + min) / 2) * 2;
   let y = Math.floor((Math.random() * (max - min + 1) + min) / 2) * 2;
   return [x, y];
@@ -28,10 +28,6 @@ class Game extends Component {
     console.log(this.state.player);
     this.grabCoin();
   }
-  //   componentWillMount() {
-  //     //   document.removeEventListener("keydown", this.keydown);
-  //     this.moveCharacter();
-  //   }
 
   move = (e) => {
     let pixel = [...this.state.player];
