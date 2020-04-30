@@ -1,0 +1,21 @@
+.game-area {
+  position: relative;
+  margin: 50px;
+  width: 600px;
+  height: 400px;
+  border: 2px solid #000;
+  background-color: lightgrey;
+}
+.charm {
+  position: absolute;
+  width: 11%;
+  height: 11%;
+  z-index: 2;
+}
+
+.coin {
+  position: absolute;
+  width: 7%;
+  height: 7%;
+  z-index: 1;
+}
