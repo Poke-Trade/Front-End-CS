@@ -153,7 +153,7 @@ const GamePage = (props) => {
           </Dialog>
         </Grid>
       </Grid>
-      <Container maxWidth="m" className={classes.paper}>
+      <Container maxWidth="xl" className={classes.paper}>
         <Typography>Move with the arrow keys</Typography>
         <Game />
       </Container>

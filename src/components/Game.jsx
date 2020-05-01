@@ -31,12 +31,12 @@ class Game extends Component {
   state = initialState;
 
   componentDidMount() {
-    console.log(this.state);
+    // console.log(this.state);
     document.onkeydown = this.move;
   }
 
   componentDidUpdate() {
-    console.log(this.state);
+    // console.log(this.state);
     this.grabCoin();
     this.grabPokeBall();
     this.generatePokeBall();
