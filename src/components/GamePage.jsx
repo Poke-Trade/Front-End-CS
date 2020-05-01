@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Game from "./Game";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { useHistory } from "react-router-dom";
 
 //Styles
 import { makeStyles } from "@material-ui/core/styles";

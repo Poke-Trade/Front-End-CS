@@ -7,6 +7,7 @@ const axiosWithAuth = () => {
     baseURL: "https://poke-trade-be.herokuapp.com",
     headers: {
       Authorization: `Token ${token}`,
+      // Authorization: token,
       "Content-Type": "application/json",
       // "Access-Control-Allow-Origin": "*",
     },
