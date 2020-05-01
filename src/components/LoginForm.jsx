@@ -17,7 +17,6 @@ const useStyles = makeStyles({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    // border: "2px solid black",
   },
   form: {
     width: "100%",
@@ -29,7 +28,7 @@ const useStyles = makeStyles({
 });
 
 const Login = (props) => {
-  console.log("props", props);
+  // console.log("props", props);
   let history = useHistory();
   const classes = useStyles();
   const initialValues = {
@@ -91,6 +90,8 @@ const Login = (props) => {
             onChange={handleChange}
           />
           <Button
+            // component={Link}
+            // to="/poketrade"
             type="submit"
             fullWidth
             variant="contained"
