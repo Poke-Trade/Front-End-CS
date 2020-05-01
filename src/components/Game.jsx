@@ -10,52 +10,40 @@ const getRandomCoordinates = () => {
   let y = Math.floor((Math.random() * (max - min + 1) + min) / 2) * 2;
   return [x, y];
 };
+const getPokeBall = () => {
+  let min = 1;
+  let max = 4;
+  let x = Math.floor((Math.random() * (max - min + 1) + min) / 2) * 2;
+  return [x];
+};
 
 const initialState = {
   coin: getRandomCoordinates(),
+  pokeball: null,
   player: [0, 0],
   direction: "",
   collectedCoins: 0,
-  yell: null,
+  yell: getPokeBall(),
+  collectedBalls: 0,
 };
 
 class Game extends Component {
   state = initialState;
 
   componentDidMount() {
-    console.log(this.state.player);
+    console.log(this.state);
     document.onkeydown = this.move;
-
-    axiosWithAuth()
-      .get("/adv/init/") //start
-      .then((res) => {
-        console.log(res);
-        this.setState({
-          yell: res.data,
-        });
-      })
-      .catch((err) => {
-        console.log("Error fetching data", err);
-      });
   }
 
   componentDidUpdate() {
-    console.log(this.state.player);
+    console.log(this.state);
     this.grabCoin();
+    this.grabPokeBall();
+    this.generatePokeBall();
+    this.onGameOver();
   }
 
   move = (e) => {
-    // axiosWithAuth()
-    //   .post("/registration/", register)
-    //   .then((res) => {
-    //     localStorage.setItem("key", res.data.key);
-    //     console.log(res);
-    //     props.history.push("/");
-    //   })
-    //   .catch((err) => {
-    //     console.log("Error Registering In", err);
-    //   });
-
     let pixel = [...this.state.player];
 
     if (pixel[1] <= 88) {
@@ -88,6 +76,22 @@ class Game extends Component {
     }
   };
 
+  grabPokeBall(e) {
+    let player = this.state.player;
+    let pokeball = this.state.pokeball;
+    let collectedBalls = this.state.collectedBalls;
+    if (pokeball !== null) {
+      if (player[0] === pokeball[0] && player[1] === pokeball[1]) {
+        collectedBalls += 1;
+        this.setState({
+          pokeball: null,
+          collectedBalls: collectedBalls,
+        });
+        // this.generatePokeBall();
+      }
+    }
+  }
+
   grabCoin(e) {
     let player = this.state.player;
     let coin = this.state.coin;
@@ -103,16 +107,34 @@ class Game extends Component {
       });
     }
   }
+  generatePokeBall(e) {
+    let collectedCoins = this.state.collectedCoins;
+    let yell = this.state.yell;
+    if (collectedCoins > yell) {
+      return this.setState({
+        pokeball: getRandomCoordinates(),
+        collectedCoins: 0,
+      });
+    }
+  }
 
-  // onGameOver() {
-  //   alert(`Border wall ${this.state.player.length}`);
-  //   this.setState(initialState);
-  // }
+  onGameOver() {
+    if (this.state.collectedBalls === 3) {
+      alert(`You got 3 PokeBalls! Congrats!`);
+      this.setState(initialState);
+    }
+  }
 
   render() {
     return (
       <div className="game-area">
-        <Room player={this.state.player} coin={this.state.coin} />
+        <Room
+          player={this.state.player}
+          coin={this.state.coin}
+          counter={this.state.collectedCoins}
+          pokeball={this.state.pokeball}
+          counterPoke={this.state.collectedBalls}
+        />
       </div>
     );
   }

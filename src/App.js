@@ -4,7 +4,6 @@ import { Switch, Route } from "react-router-dom";
 //Components
 import Home from "./components/Home";
 import Register from "./components/RegisterForm";
-// import Game from "./components/Game";
 import GamePage from "./components/GamePage";
 import PrivateRoute from "./components/PrivateRoute";
 // Styles

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Game from "./Game";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
@@ -7,15 +7,26 @@ import styled from "styled-components";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Grid from "@material-ui/core/Grid";
+import Dialog from "@material-ui/core/Dialog";
+import MuiDialogTitle from "@material-ui/core/DialogTitle";
+import MuiDialogContent from "@material-ui/core/DialogContent";
+import MuiDialogActions from "@material-ui/core/DialogActions";
 import Typography from "@material-ui/core/Typography";
+import IconButton from "@material-ui/core/IconButton";
+import HelpSharpIcon from "@material-ui/icons/HelpSharp";
 import Button from "@material-ui/core/Button";
-// import TextField from "@material-ui/core/TextField";
-// import Container from "@material-ui/core/Container";
 import ToolBar from "@material-ui/core/Toolbar";
+import Container from "@material-ui/core/Container";
 
 const useStyles = makeStyles({
   root: {
     flexGrow: 1,
+  },
+  paper: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    // border: "2px solid black",
   },
   title: {
     flexGrow: 1,
@@ -33,10 +44,32 @@ const useStyles = makeStyles({
     margin: "10px",
     color: "#b71c1c",
   },
+  content: {
+    padding: "30px",
+  },
+  hover: {
+    "&$hover:hover": {
+      backgroundColor: "#d1c4e9",
+    },
+  },
 });
 
 const GamePage = (props) => {
+  // console.log(props);
   const classes = useStyles();
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    localStorage.clear("key");
+    // history.push("/");
+  };
 
   return (
     <GameContainer>
@@ -57,11 +90,12 @@ const GamePage = (props) => {
                 className={classes.buttonPadding}
               >
                 {" "}
-                Sign In
+                Home
               </Button>
               <Button
                 component={Link}
                 to="/"
+                onClick={handleSubmit}
                 variant="contained"
                 size="small"
                 className={classes.buttonPaddingA}
@@ -69,28 +103,60 @@ const GamePage = (props) => {
                 {" "}
                 Logout
               </Button>
+              <IconButton
+                variant="contained"
+                color="primary"
+                onClick={handleClickOpen}
+              >
+                <HelpSharpIcon />
+              </IconButton>
             </Grid>
           </Grid>
         </ToolBar>
       </AppBar>
-      {/* <Container maxWidth="m"> */}
       <Grid>
         <Grid container flex-direction="row" justify="space-between">
-          <Button
-            component={Link}
-            to="/"
-            type="submit"
-            variant="contained"
-            color="primary"
-            // className={classes.submit}
+          <Dialog
+            onClose={handleClose}
+            aria-labelledby="customized-dialog-title"
+            open={open}
           >
-            Rules
-          </Button>
+            <MuiDialogTitle onClose={handleClose}>
+              <Typography>Rules</Typography>
+            </MuiDialogTitle>
+            <MuiDialogContent dividers>
+              <Typography
+                variant="body2"
+                gutterBottom
+                className={classes.content}
+              >
+                Get three pokeballs and you win!
+              </Typography>
+              <Typography
+                variant="body2"
+                gutterBottom
+                className={classes.content}
+              >
+                Move with the arrow keys
+              </Typography>
+              {/* <Typography variant="body2" gutterBottom>
+                Aenean lacinia bibendum nulla sed consectetur. Praesent commodo
+                cursus magna, vel scelerisque nisl consectetur et. Donec sed
+                odio dui. Donec ullamcorper nulla non metus auctor fringilla.
+              </Typography> */}
+            </MuiDialogContent>
+            <MuiDialogActions>
+              <Button autoFocus onClick={handleClose} color="primary">
+                Close
+              </Button>
+            </MuiDialogActions>
+          </Dialog>
         </Grid>
-        <Game />
       </Grid>
-      {/* </Container> */}
-      {/* </div> */}
+      <Container maxWidth="m" className={classes.paper}>
+        <Typography>Move with the arrow keys</Typography>
+        <Game />
+      </Container>
     </GameContainer>
   );
 };

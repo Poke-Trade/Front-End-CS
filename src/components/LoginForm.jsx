@@ -50,7 +50,7 @@ const Login = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     axiosWithAuth()
-      .post("/login/", login)
+      .post("/login", login)
       .then((res) => {
         localStorage.setItem("key", res.data.key);
         history.push("/poketrade");

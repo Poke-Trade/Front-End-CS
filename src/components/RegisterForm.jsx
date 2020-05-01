@@ -50,7 +50,7 @@ const Register = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     axiosWithAuth()
-      .post("/registration/", register)
+      .post("/register", register)
       .then((res) => {
         localStorage.setItem("key", res.data.key);
         console.log(res);
@@ -118,7 +118,7 @@ const Register = (props) => {
             >
               Sign Up
             </Button>
-            <Grid container justify="flex-end">
+            <Grid container justify="flex-start">
               <Grid item>
                 <Link to="/" variant="body2">
                   Already have an account? Sign in
