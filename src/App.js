@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { Switch, Route, Link } from "react-router-dom";
+import React from "react";
+import { Switch, Route } from "react-router-dom";
 
 //Components
 import Home from "./components/Home";
 import Register from "./components/RegisterForm";
-// import Game from "./components/Game";
 import GamePage from "./components/GamePage";
 import PrivateRoute from "./components/PrivateRoute";
 // Styles

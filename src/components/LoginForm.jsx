@@ -8,17 +8,24 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Container from "@material-ui/core/Container";
+// import styled from "styled-components";
+// import ball from "../assets/ball.png";
+import "../styles/App.css";
 
 const useStyles = makeStyles({
   paper: {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
+    // border: "2px solid black",
   },
   form: {
     width: "100%",
   },
   submit: {},
+  space: {
+    marginRight: "20px",
+  },
 });
 
 const Login = (props) => {
@@ -43,7 +50,7 @@ const Login = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     axiosWithAuth()
-      .post("/login/", login)
+      .post("/login", login)
       .then((res) => {
         localStorage.setItem("key", res.data.key);
         history.push("/poketrade");
@@ -55,7 +62,9 @@ const Login = (props) => {
   };
   return (
     <Container maxWidth="xs">
-      <Typography variant="h5">Sign in</Typography>
+      <Typography variant="h5">Ready to play?</Typography>
+      {/* <Typography variant="h5">Welcome!</Typography> */}
+      {/* <img className="Ball" src={ball} alt="ball" /> */}
       <div className={classes.paper}>
         <form className={classes.form} onSubmit={handleSubmit}>
           <TextField
@@ -92,8 +101,8 @@ const Login = (props) => {
           </Button>
           <Grid container>
             <Grid item>
-              <Link to="/register" variant="body2">
-                {"Don't have an account? Sign Up"}
+              <Link to="/register" variant="body2" underline="hover">
+                {"   Don't have an account?   Sign Up!"}
               </Link>
             </Grid>
           </Grid>
